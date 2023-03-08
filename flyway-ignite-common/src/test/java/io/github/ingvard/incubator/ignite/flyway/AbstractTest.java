@@ -47,16 +47,11 @@ public class AbstractTest {
     protected static final String FLYWAY_SCHEMA_HISTORY_NAME = "SQL_PUBLIC_flyway_schema_history";
 
     /**
-     * Ignite.
-     */
-    protected IgniteEx ignite;
-
-    /**
      * Setups.
      */
     @BeforeEach
     void setUp() throws IgniteCheckedException {
-        ignite = (IgniteEx) IgnitionEx.start(getIgniteConfiguration(), false);
+        IgnitionEx.start(getIgniteConfiguration(), false);
     }
 
     /**
@@ -87,8 +82,9 @@ public class AbstractTest {
         return new ClientConfiguration().setAddresses(jdbcAddress());
     }
 
+
     /**
-     *
+     * Returns JDBC address.
      */
     protected String jdbcAddress() {
         return LOOPBACK + ":" + THIN_CLIENT_PORT;

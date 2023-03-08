@@ -1,16 +1,18 @@
 /*
- *   Licensed to the Apache Software Foundation (ASF) under one or more
- *   contributor license agreements.  See the NOTICE file distributed with
- *   this work for additional information regarding copyright ownership.
- *   The ASF licenses this file to You under the Apache License, Version 2.0
- *   (the "License"); you may not use this file except in compliance with
- *   the License.  You may obtain a copy of the License at
- *        http://www.apache.org/licenses/LICENSE-2.0
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package io.github.ingvard.incubator.ignite.flyway.common.network;
@@ -34,28 +36,35 @@ import org.apache.ignite.lang.IgniteProductVersion;
  * Special isolated node.
  */
 public class IsolatedNode implements IgniteClusterNode {
-    /** */
+    /** Id. */
     private final UUID id;
 
-    /** */
+    /** Version. */
     private final IgniteProductVersion ver;
 
-    /** Consistent ID. */
+    /**
+     * Consistent ID.
+     */
     private Object consistentId;
 
-    /** Node attributes. */
+    /**
+     * Node attributes.
+     */
     private Map<String, Object> attrs;
 
-    /** */
+    /** Metrics. */
     private volatile ClusterMetrics metrics = new ClusterMetricsSnapshot();
 
-    /** */
+    /** Cache metrics. */
     private volatile Map<Integer, CacheMetrics> cacheMetrics = Collections.emptyMap();
 
+
     /**
-     * @param id Node ID.
-     * @param attrs Node attributes.
-     * @param ver Node version.
+     * Default constructor.
+     *
+     * @param id    Id.
+     * @param attrs Attributes.
+     * @param ver   Version.
      */
     public IsolatedNode(UUID id, Map<String, Object> attrs, IgniteProductVersion ver) {
         this.id = id;
@@ -63,67 +72,93 @@ public class IsolatedNode implements IgniteClusterNode {
         this.ver = ver;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public UUID id() {
         return id;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public Object consistentId() {
         return consistentId;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public <T> T attribute(String name) {
-        return (T)attrs.get(name);
+        return (T) attrs.get(name);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public ClusterMetrics metrics() {
         return metrics;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public Map<String, Object> attributes() {
         return attrs;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public Collection<String> addresses() {
         return Collections.singleton("127.0.0.1");
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public Collection<String> hostNames() {
         return Collections.singleton("localhost");
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public long order() {
         return 1;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public IgniteProductVersion version() {
         return ver;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public boolean isLocal() {
         return true;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public boolean isDaemon() {
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public boolean isClient() {
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public void setConsistentId(Serializable consistentId) {
         this.consistentId = consistentId;
 
@@ -135,23 +170,31 @@ public class IsolatedNode implements IgniteClusterNode {
     }
 
     /**
+     * Sets a node attributes.
+     *
      * @param attrs Node attributes.
      */
     public void setAttributes(Map<String, Object> attrs) {
         this.attrs = Collections.unmodifiableMap(attrs);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public void setMetrics(ClusterMetrics metrics) {
         this.metrics = metrics;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public Map<Integer, CacheMetrics> cacheMetrics() {
         return cacheMetrics;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override public void setCacheMetrics(Map<Integer, CacheMetrics> cacheMetrics) {
         this.cacheMetrics = cacheMetrics != null ? cacheMetrics : Collections.emptyMap();
     }

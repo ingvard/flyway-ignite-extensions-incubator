@@ -1,16 +1,18 @@
 /*
- *   Licensed to the Apache Software Foundation (ASF) under one or more
- *   contributor license agreements.  See the NOTICE file distributed with
- *   this work for additional information regarding copyright ownership.
- *   The ASF licenses this file to You under the Apache License, Version 2.0
- *   (the "License"); you may not use this file except in compliance with
- *   the License.  You may obtain a copy of the License at
- *        http://www.apache.org/licenses/LICENSE-2.0
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package io.github.ingvard.incubator.ignite.flyway.common.snapshot;
@@ -23,6 +25,7 @@ import io.github.ingvard.incubator.ignite.flyway.common.snapshot.exception.Snaps
 import io.github.ingvard.incubator.ignite.flyway.common.sql.generator.SqlGenerator;
 import io.github.ingvard.incubator.ignite.flyway.common.sql.mapper.IntermediateSchemaMapper;
 import io.github.ingvard.incubator.ignite.flyway.common.sql.objects.Table;
+import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.OverlappingFileLockException;
@@ -97,10 +100,9 @@ public class Dumper {
      * @param snapshotName Snapshot name.
      */
     public SnapshotOperation createFullSchemaSnapshot(String snapshotName) {
-        try (RandomAccessFile stream = new RandomAccessFile(
-                fileWithNextIndex(Paths.get(dumpWorkDir, snapshotName + SQL_FORMAT_EXT).toFile(), SQL_FORMAT_EXT), "rw");
-             FileChannel channel = stream.getChannel()
-        ) {
+        File snapshotFile = fileWithNextIndex(Paths.get(dumpWorkDir, snapshotName + SQL_FORMAT_EXT).toFile(), SQL_FORMAT_EXT);
+
+        try (RandomAccessFile stream = new RandomAccessFile(snapshotFile, "rw"); FileChannel channel = stream.getChannel()) {
             channel.tryLock(); // Lock release on try-with-resources.
 
             log.info("Full snapshot schema dump is started [optDir={}]", dumpWorkDir);

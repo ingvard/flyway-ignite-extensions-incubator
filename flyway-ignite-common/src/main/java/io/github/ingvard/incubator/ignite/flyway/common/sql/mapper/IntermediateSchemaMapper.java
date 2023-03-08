@@ -1,16 +1,18 @@
 /*
- *   Licensed to the Apache Software Foundation (ASF) under one or more
- *   contributor license agreements.  See the NOTICE file distributed with
- *   this work for additional information regarding copyright ownership.
- *   The ASF licenses this file to You under the Apache License, Version 2.0
- *   (the "License"); you may not use this file except in compliance with
- *   the License.  You may obtain a copy of the License at
- *        http://www.apache.org/licenses/LICENSE-2.0
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package io.github.ingvard.incubator.ignite.flyway.common.sql.mapper;
@@ -51,8 +53,8 @@ public class IntermediateSchemaMapper {
         QueryEntity[] qryEntities = cacheCfg.getQueryEntities();
 
         if (qryEntities.length != 1) {
-            throw new IllegalStateException("Table cache must have only one query entry definition [entities=" +
-                    Arrays.toString(qryEntities) + "]");
+            throw new IllegalStateException("Table cache must have only one query entry definition [entities="
+                    + Arrays.toString(qryEntities) + "]");
         }
 
         QueryEntity qryEntity = qryEntities[0];
@@ -65,6 +67,8 @@ public class IntermediateSchemaMapper {
     }
 
     /**
+     * Extracts table config from a cache configuration.
+     *
      * @param cacheCfg Cache config.
      */
     public TableStoreConfig tableStoreConfig(ClientCacheConfiguration cacheCfg) {
@@ -80,6 +84,8 @@ public class IntermediateSchemaMapper {
     }
 
     /**
+     * Extracts columns definitions from {@link QueryEntity}.
+     *
      * @param qryEntity Query entity.
      */
     public List<Column> columns(QueryEntity qryEntity) {
@@ -93,6 +99,8 @@ public class IntermediateSchemaMapper {
     }
 
     /**
+     * Returns a column representation.
+     *
      * @param columnName        Column name.
      * @param columnTypeClsName Column type class name.
      * @param qryEntity         Query entity.
@@ -108,6 +116,8 @@ public class IntermediateSchemaMapper {
     }
 
     /**
+     * Returns sql type by java row type name.
+     *
      * @param columnName        Column name.
      * @param columnTypeClsName Column type class name.
      */
