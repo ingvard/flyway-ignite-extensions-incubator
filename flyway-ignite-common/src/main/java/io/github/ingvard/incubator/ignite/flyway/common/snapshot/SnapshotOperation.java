@@ -15,9 +15,15 @@
 
 package io.github.ingvard.incubator.ignite.flyway.common.snapshot;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Snapshot operation result.
  */
+@Getter
+@RequiredArgsConstructor
 public class SnapshotOperation {
-
+    /** Success. */
+    private final boolean success;
 }

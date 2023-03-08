@@ -129,13 +129,13 @@ public class Dumper {
                     skippedCaches
             );
 
-            return null;
+            return new SnapshotOperation(true);
         } catch (OverlappingFileLockException e) {
-            log.warn("Cannot aquire lock file, possible paralle snapshot");
+            log.warn("The lock file cannot be obtained, a parallel snapshot is possible running.");
 
             throw new SnapshotOperationException();
         } catch (Exception e) {
-            log.error("TODO");
+            log.error("Snapshot creation failed with an error: " + e.getMessage(), e);
 
             throw new SnapshotOperationException();
         }
